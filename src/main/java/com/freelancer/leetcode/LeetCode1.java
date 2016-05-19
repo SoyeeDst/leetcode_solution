@@ -4,7 +4,7 @@ package com.freelancer.leetcode;
  * Created by Soyee on 2016/5/11.
  */
 public class LeetCode1 {
-    
+
     public int[] twoSum(int[] nums, int target) {
         int result[] = new int[2];
         for (int index1 = 0; index1 <= nums.length - 1; index1++) {
