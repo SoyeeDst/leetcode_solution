@@ -112,11 +112,10 @@ public class LeetCode18 {
             System.err.println("");
         }
 
-        System.err.println("xxxxxxxxxxxxxxxxxxx");
+        System.err.println("===================== Test 3 ==========================");
 
         List<List<Integer>> dataList3 = leetCode18.fourSum(new int[] {-1, 0, 1, 2, -1, -4}, -1);
 
-        System.err.println("xxxxxxxxxxxxxxxxxxx");
         for (List<Integer> data : dataList3) {
             for (Integer a : data) {
                 System.err.print(a + " ");
@@ -124,12 +123,13 @@ public class LeetCode18 {
             System.err.println("");
         }
 
-        System.err.println("xxxxxxxxxxxxxxxxxxx");
+        System.err.println("===================== Test 4 ==========================");
         List<List<Integer>> dataList4 = leetCode18.fourSum(new int[] {-4,-3,-2,-1,0,0,1,2,3,4}, 0);
-        System.err.println("xxxxxxxxxxxxxxxxxxx");
 
         System.err.println(dataList4.size() == 0);
 
+
+        System.err.println("===================== Test 5 ==========================");
         List<List<Integer>> dataList5 = leetCode18.fourSum(new int[] {-3, -1, 0, 2, 4, 5}, 0);
 
         for (List<Integer> data : dataList5) {
@@ -139,9 +139,8 @@ public class LeetCode18 {
             System.err.println("");
         }
 
+        System.err.println("===================== Test 6 ==========================");
         List<List<Integer>> dataList6 = leetCode18.fourSum(new int[] {-1,0,1,2,-1,-4}, -1);
-
-        System.err.println("xxxxxxxxxxxxxxxxxxx");
         for (List<Integer> data : dataList6) {
             for (Integer a : data) {
                 System.err.print(a + " ");
@@ -150,9 +149,8 @@ public class LeetCode18 {
         }
 
         // chong fu
+        System.err.println("===================== Test 7 ==========================");
         List<List<Integer>> dataList7 = leetCode18.fourSum(new int[] {-1,-5,-5,-3,2,5,0,4}, -7);
-
-        System.err.println("xxxxxxxxxxxxxxxxxxx    xxxxxxxxxxxxxx");
         for (List<Integer> data : dataList7) {
             for (Integer a : data) {
                 System.err.print(a + " ");
@@ -160,9 +158,8 @@ public class LeetCode18 {
             System.err.println("");
         }
 
+        System.err.println("===================== Test 8 ==========================");
         List<List<Integer>> dataList8 = leetCode18.fourSum(new int[] {-1,0,-5,-2,-2,-4,0,1,-2}, -9);
-
-        System.err.println("xxxxxxxxxxxxxxxxxxx    xxxxxxxxxxxxxx dataList8");
         for (List<Integer> data : dataList8) {
             for (Integer a : data) {
                 System.err.print(a + " ");
@@ -170,9 +167,10 @@ public class LeetCode18 {
             System.err.println("");
         }
 
+
+        System.err.println("===================== Test 9 ==========================");
         List<List<Integer>> dataList9 = leetCode18.fourSum(new int[] {2,0, 3, 0, 1, 2, 4}, 7);
 
-        System.err.println("xxxxxxxxxxxxxxxxxxx    xxxxxxxxxxxxxx dataList9");
         for (List<Integer> data : dataList9) {
             for (Integer a : data) {
                 System.err.print(a + " ");
@@ -180,9 +178,8 @@ public class LeetCode18 {
             System.err.println("");
         }
 
+        System.err.println("===================== Test 9 ==========================");
         List<List<Integer>> dataList10 = leetCode18.fourSum(new int[] {-5, 5, 4, -3, 0, 0, 4, -2}, 4);
-
-        System.err.println("xxxxxxxxxxxxxxxxxxx    xxxxxxxxxxxxxx dataList10");
         for (List<Integer> data : dataList10) {
             for (Integer a : data) {
                 System.err.print(a + " ");
