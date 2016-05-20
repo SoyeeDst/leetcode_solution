@@ -52,7 +52,7 @@ public class LeetCode30 {
                       break;
                   }
                   // first time to meet road blocks
-                  int nestedStart = index - 1;
+                  int nestedStart = start - 1;
                   do {
                      checkedOffset.add(nestedStart);
                      ForwardDetection forwardDetection = forwardDetects(s, clipLen, nestedStart, wordsCount, words.length);
@@ -68,7 +68,7 @@ public class LeetCode30 {
                      // for later big skip
                      minIndex = Math.min(minIndex, forwardDetection.terminal);
                      nestedStart--;
-                  } while(nestedStart >= index - clipLen + 1);
+                  } while(nestedStart >= start - clipLen + 1);
 
                   break;
               }
