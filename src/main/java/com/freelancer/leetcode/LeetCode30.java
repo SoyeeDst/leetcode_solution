@@ -29,7 +29,7 @@ public class LeetCode30 {
            Map<String, Integer> matchingDataMap = temporaryMapForMatch(wordsCount);
            int start = index;
            checkedOffset.add(index);
-           Integer minIndex = s.length();
+           int nestedStart = s.length();
 
            boolean matchOnce = false;
            while (start >= clipLen - 1) {
@@ -52,32 +52,29 @@ public class LeetCode30 {
                       break;
                   }
                   // first time to meet road blocks
-                  int nestedStart = index - 1;
+                  nestedStart = index - 1;
                   do {
                      checkedOffset.add(nestedStart);
                      ForwardDetection forwardDetection = forwardDetects(s, clipLen, nestedStart, wordsCount, words.length);
                      if (forwardDetection.nofurtherAlter) {
-                         // return;
-                         return resultList;
+                         break;
                      }
                      if (forwardDetection.matches != null) {
                          resultList.add(forwardDetection.matches);
-                         minIndex = s.length();
                          break;
                      }
-                     // for later big skip
-                     minIndex = Math.min(minIndex, forwardDetection.terminal);
                      nestedStart--;
-                  } while(nestedStart >= index - clipLen + 1);
-
+                  } while(nestedStart >= 0);
                   break;
               }
            }
-           if (minIndex != s.length()) {
-               index = minIndex - 1;
+
+           if (nestedStart != s.length()) {
+               index = nestedStart - 1;
            } else {
                index = index - 1;
            }
+
         } while (index >= 0 && index >= (totalLen - 1));
         return resultList;
     }
@@ -115,7 +112,7 @@ public class LeetCode30 {
         int startOffSetBackup = startOffset;
         Map<String, Integer> matchingDataMap = temporaryMapForMatch(wordsCount);
         int matchingCount = 0;
-        while (startOffset > 0 && matchingCount <= criteriaCount) {
+        while (startOffset > 0 && matchingCount < criteriaCount) {
             boolean simpleResult = nextCheckingOrNot(str, clipLen, matchingDataMap, startOffset);
             if (!simpleResult) {
                 if (startOffset < clipLen) {
@@ -138,7 +135,7 @@ public class LeetCode30 {
         if (startOffSetBackup < clipLen * criteriaCount) {
             forwardDetection.matches = 0;
         } else {
-            forwardDetection.matches = startOffset - clipLen * criteriaCount + 1;
+            forwardDetection.matches = startOffSetBackup - clipLen * criteriaCount + 1;
         }
         return forwardDetection;
     }
