@@ -29,7 +29,7 @@ public class LeetCode30 {
            Map<String, Integer> matchingDataMap = temporaryMapForMatch(wordsCount);
            int start = index;
            checkedOffset.add(index);
-           int nestedStart = s.length();
+           int maxIndex = 0;
 
            boolean matchOnce = false;
            while (start >= clipLen - 1) {
@@ -51,8 +51,9 @@ public class LeetCode30 {
                   if (!matchOnce || clipLen == 1) {
                       break;
                   }
+
                   // first time to meet road blocks
-                  nestedStart = index - 1;
+                  int nestedStart = index - 1;
                   do {
                      checkedOffset.add(nestedStart);
                      ForwardDetection forwardDetection = forwardDetects(s, clipLen, nestedStart, wordsCount, words.length);
@@ -63,14 +64,15 @@ public class LeetCode30 {
                          resultList.add(forwardDetection.matches);
                          break;
                      }
+                     maxIndex = Math.max(maxIndex, forwardDetection.terminal);
                      nestedStart--;
-                  } while(nestedStart >= 0);
+                  } while(nestedStart >= index - clipLen + 1);
                   break;
               }
            }
 
-           if (nestedStart != s.length()) {
-               index = nestedStart - 1;
+           if (maxIndex != 0) {
+               index = maxIndex - 1;
            } else {
                index = index - 1;
            }
@@ -119,7 +121,11 @@ public class LeetCode30 {
                     forwardDetection.nofurtherAlter = true;
                     return forwardDetection;
                 }
-                forwardDetection.terminal = startOffSetBackup;
+                if (matchingCount == 0) {
+                    forwardDetection.terminal = startOffSetBackup;
+                } else {
+                    forwardDetection.terminal = startOffset + (clipLen);
+                }
                 return forwardDetection;
             }
             matchingCount = matchingCount + 1;
@@ -164,6 +170,5 @@ public class LeetCode30 {
         public int terminal;
         public Integer matches;
         public Boolean nofurtherAlter = false;
-
     }
 }
