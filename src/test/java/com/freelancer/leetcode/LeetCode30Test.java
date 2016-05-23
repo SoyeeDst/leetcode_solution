@@ -78,6 +78,7 @@ public class LeetCode30Test {
         List<Integer> resultList = leetCode30.findSubstring("abababab", new String[] {"ab", "ba"});
         Collections.sort(resultList);
         Assert.assertEquals(0, resultList.size());
+
     }
     
     @Test
@@ -89,4 +90,15 @@ public class LeetCode30Test {
         Assert.assertEquals(new Integer(1), resultList.get(0));
         Assert.assertEquals(new Integer(3), resultList.get(1));
     }
+
+    @Test
+    public void testFindSubString8() {
+        LeetCode30 leetCode30 = new LeetCode30();
+        List<Integer> resultList = leetCode30.findSubstring("abaababbaba", new String[] {"ba","ab","ab"});
+        Collections.sort(resultList);
+        Assert.assertEquals(2, resultList.size());
+        Assert.assertEquals(new Integer(1), resultList.get(0));
+        Assert.assertEquals(new Integer(3), resultList.get(1));
+    }
+
 }
