@@ -101,6 +101,4 @@ public class LeetCode30Test {
         Assert.assertEquals(new Integer(3), resultList.get(1));
     }
 
-    @Test
-    public
 }
