@@ -21,61 +21,61 @@ public class LeetCode30 {
 
         int index = s.length() - 1;
         do {
-           if (checkedOffset.contains(index)) {
-               // Skip
-               index = index - 1;
-               continue;
-           }
-           Map<String, Integer> matchingDataMap = temporaryMapForMatch(wordsCount);
-           int start = index;
-           checkedOffset.add(index);
-           int maxIndex = 0;
+            if (checkedOffset.contains(index)) {
+                // Skip
+                index = index - 1;
+                continue;
+            }
+            Map<String, Integer> matchingDataMap = temporaryMapForMatch(wordsCount);
+            int start = index;
+            checkedOffset.add(index);
+            int maxIndex = 0;
 
-           boolean matchOnce = false;
-           while (start >= clipLen - 1) {
-              boolean simpleResult = nextCheckingOrNot(s, clipLen, matchingDataMap, start);
-              if (simpleResult) {
-                  matchOnce = true;
-                  if (matchingDataMap.isEmpty()) {
-                      if (start - clipLen < 0) {
-                          resultList.add(0);
-                      } else {
-                          resultList.add(start - clipLen + 1);
-                      }
-                      break;
-                  } else {
-                      start = start - clipLen;
-                      continue;
-                  }
-              } else {
-                  if (!matchOnce || clipLen == 1) {
-                      break;
-                  }
+            boolean matchOnce = false;
+            while (start >= clipLen - 1) {
+                boolean simpleResult = nextCheckingOrNot(s, clipLen, matchingDataMap, start);
+                if (simpleResult) {
+                    matchOnce = true;
+                    if (matchingDataMap.isEmpty()) {
+                        if (start - clipLen < 0) {
+                            resultList.add(0);
+                        } else {
+                            resultList.add(start - clipLen + 1);
+                        }
+                        break;
+                    } else {
+                        start = start - clipLen;
+                        continue;
+                    }
+                } else {
+                    if (!matchOnce || clipLen == 1) {
+                        break;
+                    }
 
-                  // first time to meet road blocks
-                  int nestedStart = index - 1;
-                  do {
-                     checkedOffset.add(nestedStart);
-                     ForwardDetection forwardDetection = forwardDetects(s, clipLen, nestedStart, wordsCount, words.length);
-                     if (forwardDetection.nofurtherAlter) {
-                         break;
-                     }
-                     if (forwardDetection.matches != null) {
-                         resultList.add(forwardDetection.matches);
-                         break;
-                     }
-                     maxIndex = Math.max(maxIndex, forwardDetection.terminal);
-                     nestedStart--;
-                  } while(nestedStart >= index - clipLen + 1);
-                  break;
-              }
-           }
+                    // first time to meet road blocks
+                    int nestedStart = index - 1;
+                    do {
+                        checkedOffset.add(nestedStart);
+                        ForwardDetection forwardDetection = forwardDetects(s, clipLen, nestedStart, wordsCount, words.length);
+                        if (forwardDetection.nofurtherAlter) {
+                            break;
+                        }
+                        if (forwardDetection.matches != null) {
+                            resultList.add(forwardDetection.matches);
+                            break;
+                        }
+                        maxIndex = Math.max(maxIndex, forwardDetection.terminal);
+                        nestedStart--;
+                    } while (nestedStart >= index - clipLen + 1);
+                    break;
+                }
+            }
 
-           if (maxIndex != 0) {
-               index = maxIndex - 1;
-           } else {
-               index = index - 1;
-           }
+            if (maxIndex != 0) {
+                index = maxIndex - 1;
+            } else {
+                index = index - 1;
+            }
 
         } while (index >= 0 && index >= (totalLen - 1));
         return resultList;
@@ -96,7 +96,7 @@ public class LeetCode30 {
         return possibleGet(testedStr, matchingDataMap);
     }
 
-    private static Map<String, Integer> wordsCounts(String []words) {
+    private static Map<String, Integer> wordsCounts(String[] words) {
         Map<String, Integer> wordsCount = new HashMap<>();
         for (String word : words) {
             if (wordsCount.containsKey(word)) {
