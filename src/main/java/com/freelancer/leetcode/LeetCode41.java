@@ -1,5 +1,6 @@
 package com.freelancer.leetcode;
 
+import java.util.BitSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ public class LeetCode41 {
         if (nums == null || nums.length == 0) {
             return 1;
         }
+
         int min = Integer.MAX_VALUE;
         for (int index = 0; index < nums.length; index++) {
             if (nums[index] > 0) {
@@ -21,39 +23,16 @@ public class LeetCode41 {
             }
         }
 
-        if (min <= 0) {
+        if (min <= 0 || min >= 2) {
             return 1;
         }
 
-        // Skip all some increments values and lift up the minimum values as well.
-        int index = 0;
-        int minMax = min;
-        Set<Integer> ignoredSet = new HashSet<>();
-        do {
-            if (nums[index] > min) {
-                // increment by one
-                if (nums[index] - minMax == 1) {
-                    minMax = nums[index];
-                } else {
-                    ignoredSet.add(nums[index]);
-                }
-
+        BitSet bitSet = new BitSet();
+        for (int index = 0; index < nums.length; index++) {
+            if (nums[index] > 0) {
+                bitSet.set(nums[index]);
             }
-            index++;
-        } while (index < nums.length);
-
-        if (min >= 2) {
-            return 1;
         }
-        if (ignoredSet.size() == 0) {
-            return minMax + 1;
-        }
-
-        while(true) {
-            if (!ignoredSet.contains(minMax + 1)) {
-                return minMax + 1;
-            }
-            minMax++;
-        }
+        return bitSet.nextClearBit(1);
     }
 }
