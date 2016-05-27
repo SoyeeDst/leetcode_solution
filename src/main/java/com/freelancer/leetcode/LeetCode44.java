@@ -141,7 +141,7 @@ public class LeetCode44 {
                 boolean result = matcher(s, p, startOffset + 1, offset + 1, resultMatrix);
                 resultMatrix[startOffset + 1][offset + 1] = result;
                 if (!result) {
-                    // backdate if meeting any obstacle while forwarding
+                    // backtracing if meeting any obstacle while forwarding
                     result =  matcher(s, p, startOffset + 1, offset, resultMatrix);
                     resultMatrix[startOffset + 1][offset] = result;
                     if (!result) {
