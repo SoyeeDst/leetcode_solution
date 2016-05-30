@@ -1,61 +1,90 @@
 package com.freelancer.leetcode;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 /**
  * Created by Soyee on 2016/5/26.
+ *
  */
 public class LeetCode45 {
 
     public int jump(int[] nums) {
-        Integer[] nullZeroList = nullZero(nums);
+        Integer[] nullZeroList = dataCopy(nums);
         if (nums.length == 1) {
             return 0;
         }
         if (nums.length == 2) {
             return 1;
         }
-        Integer[][] resultMatrix = new Integer[nullZeroList.length][nullZeroList.length];
-        performCalculation(resultMatrix, nullZeroList, 0, nullZeroList.length - 1);
-        return resultMatrix[0][nullZeroList.length - 1];
+        int value = flatNumbers(nullZeroList, 0, nullZeroList.length - 1);
+        if (value != 0) {
+            return value;
+        }
+        Integer[] zoomOutIntegers = zoomOut(nullZeroList);
+        if (zoomOutIntegers == null) {
+            return 1;
+        }
+        Integer[][] resultMatrix = new Integer[zoomOutIntegers.length][zoomOutIntegers.length];
+        performCalculation(resultMatrix, zoomOutIntegers, 0, zoomOutIntegers.length - 1);
+        return resultMatrix[0][zoomOutIntegers.length - 1];
     }
 
-    private static Integer[] nullZero(int[] nums) {
+    private static Integer[] dataCopy(int[] nums) {
         List<Integer> numList = new ArrayList<>();
         for (int index = 0; index < nums.length; index++) {
-            if (nums[index] != 0) {
-                numList.add(nums[index]);
-            }
+            numList.add(nums[index]);
         }
         return numList.toArray(new Integer[numList.size()]);
     }
 
-    private static boolean flatNumbers(Integer[] nums) {
-        Set<Integer> uniqueData = new HashSet<>();
-        for (Integer num : nums) {
-            uniqueData.add(num);
+    private static int flatNumbers(Integer[] nums, int start, int end) {
+        Map<Integer, Object> uniqueData = new HashMap<>();
+        for (int index = start; index <= end; index++) {
+            uniqueData.put(nums[index], null);
         }
-        return uniqueData.size() == 1 ? true : false;
+        if (uniqueData.size() != 1) {
+            return 0;
+        }
+        if ((start - end - 1) % nums[start] == 0) {
+            return (nums.length - 1) / nums[start];
+        } else {
+            return ((nums.length - 1) / nums[start]) + 1;
+        }
     }
 
+    private static Integer[] zoomOut(Integer[] nums) {
+        Integer maxValue = Integer.MIN_VALUE;
+        int length = 1;
+        for (int index = 0; index < nums.length; index++) {
+            if (maxValue == Integer.MIN_VALUE) {
+                maxValue = nums[index];
+            } else {
+                if (nums[index] == maxValue - 1) {
+                    maxValue = nums[index];
+                    length++;
+                } else {
+                    break;
+                }
+            }
+        }
+        if (length == nums.length) {
+            return null;
+        }
+        if (length <= 2) {
+            return nums;
+        }
+        Integer[] zoomOutIntegers = new Integer[nums.length - length + 2];
+        System.arraycopy(nums, length - 2, zoomOutIntegers, 0, nums.length - length + 2);
+        return zoomOutIntegers;
+    }
 
     // recursively do this to obtain the most optimized solution
     private static void performCalculation(Integer[][] resultMatrix, Integer[] nums, int start, int end) {
-        //System.err.println("Perform calculation, start : " + start + ", end : " + end);
         if (resultMatrix[start][end] != null) {
             // duplicate calculation, return directly
-            return;
-        }
-
-        if (flatNumbers(nums)) {
-            if ((nums.length - 1) % nums[0] == 0) {
-                resultMatrix[start][end] = (nums.length - 1) / nums[0];
-            } else {
-                resultMatrix[start][end] = ((nums.length - 1) / nums[0]) + 1;
-            }
             return;
         }
 
@@ -71,6 +100,12 @@ public class LeetCode45 {
 
         if (end == start + 1) {
             resultMatrix[start][end] = 1;
+            return;
+        }
+
+        int value;
+        if ((value = flatNumbers(nums, start, end)) != 0) {
+            resultMatrix[start][end] = value;
             return;
         }
 
