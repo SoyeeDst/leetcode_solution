@@ -1,6 +1,5 @@
 package com.freelancer.leetcode;
 
-import com.sun.deploy.util.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,12 +15,6 @@ public class LeetCode51Test {
         LeetCode51 leetCode51 = new LeetCode51();
         List<List<String>> valueList = leetCode51.solveNQueens(4);
         Assert.assertTrue(valueList.size() == 2);
-        int answerIndex = 0;
-        for (List<String> alternativeAnswer : valueList) {
-            System.err.println("---------- Answer " + answerIndex + " ----------");
-            answerIndex++;
-            System.err.println(StringUtils.join(alternativeAnswer, "\n"));
-        }
     }
 
     @Test
@@ -29,24 +22,13 @@ public class LeetCode51Test {
         LeetCode51 leetCode51 = new LeetCode51();
         List<List<String>> valueList = leetCode51.solveNQueens(8);
         Assert.assertEquals(92, valueList.size());
-        int answerIndex = 0;
-        for (List<String> alternativeAnswer : valueList) {
-            System.err.println("---------- Answer " + answerIndex + " ----------");
-            answerIndex++;
-            System.err.println(StringUtils.join(alternativeAnswer, "\n"));
-        }
     }
 
     @Test
     public void testOdd5Queens() {
         LeetCode51 leetCode51 = new LeetCode51();
         List<List<String>> valueList = leetCode51.solveNQueens(5);
-        int answerIndex = 0;
-        for (List<String> alternativeAnswer : valueList) {
-            System.err.println("---------- Answer " + answerIndex + " ----------");
-            answerIndex++;
-            System.err.println(StringUtils.join(alternativeAnswer, "\n"));
-        }
+        Assert.assertEquals(10, valueList.size());
     }
 
     @Test
@@ -54,12 +36,6 @@ public class LeetCode51Test {
         LeetCode51 leetCode51 = new LeetCode51();
         List<List<String>> valueList = leetCode51.solveNQueens(7);
         Assert.assertEquals(40, valueList.size());
-        int answerIndex = 0;
-        for (List<String> alternativeAnswer : valueList) {
-            System.err.println("---------- Answer " + answerIndex + " ----------");
-            answerIndex++;
-            System.err.println(StringUtils.join(alternativeAnswer, "\n"));
-        }
     }
 
     @Test
