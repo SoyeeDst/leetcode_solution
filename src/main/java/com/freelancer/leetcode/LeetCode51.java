@@ -20,6 +20,8 @@ public class LeetCode51 {
         // backtrace algorithm with time complexity o(n ^ 3)
         // the first index
         int startIndex = 0;
+
+        // symmetric alternatives from each side
         int endIndex = n % 2 == 0 ? (n / 2) : (n / 2 + 1);
         List<List<String>> resultList = new ArrayList<>();
         Stack<Integer> probationStack = new Stack<>();
@@ -29,30 +31,9 @@ public class LeetCode51 {
             Integer innerIndex = 0;
 
             do {
-                boolean properSeatGot;
-                do {
-                    properSeatGot = true;
-                    int stackSize = probationStack.size();
-
-                    for (int elementIndex = 0; elementIndex < stackSize; elementIndex++) {
-                        Integer currentElement = probationStack.elementAt(elementIndex);
-                        if (currentElement == innerIndex) {
-                            properSeatGot = false;
-                            break;
-                        }
-                        if (Math.abs(innerIndex - currentElement) == stackSize - elementIndex) {
-                            properSeatGot = false;
-                            break;
-                        }
-                    }
-                    if (properSeatGot) {
-                       break;
-                    }
-                    innerIndex++;
-                } while (innerIndex < n);
-
-                if (properSeatGot) {
-                    probationStack.push(innerIndex);
+                int properSeatGot = nextAvailableSeat(probationStack, innerIndex, n);
+                if (properSeatGot >= 0) {
+                    probationStack.push(properSeatGot);
                     innerIndex = 0;
                 } else {
                     // back n step
@@ -75,10 +56,30 @@ public class LeetCode51 {
             } while (innerIndex < n && !probationStack.isEmpty());
             probationStack.clear();
             startIndex++;
-
         } while (startIndex < endIndex);
-
         return resultList;
+    }
+
+    private static int nextAvailableSeat(Stack<Integer> probationStack, int startN, int maxN) {
+        for (int i = startN; i < maxN; i++) {
+            if (probationStack.contains(i)) {
+                continue;
+            }
+            int stackSize = probationStack.size();
+            boolean notfound = false;
+            for (int elementIndex = 0; elementIndex < stackSize; elementIndex++) {
+                Integer currentElement = probationStack.elementAt(elementIndex);
+                if (Math.abs(i - currentElement) == stackSize - elementIndex) {
+                    notfound = true;
+                    break;
+                }
+            }
+            if (notfound) {
+                continue;
+            }
+            return i;
+        }
+        return Integer.MIN_VALUE;
     }
 
     // it should spawn 2 results in to result list
@@ -100,26 +101,16 @@ public class LeetCode51 {
     }
 
     private static String printable(int index, int n) {
-        StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < n; i++) {
-            if (i == index) {
-                stringBuffer.append(QUEEN_SYMBOL);
-            } else {
-                stringBuffer.append(EMPTY_PLACE);
-            }
-        }
-        return stringBuffer.toString();
+        char[] answer = new char[n];
+        Arrays.fill(answer, '.');
+        answer[index] = 'Q';
+        return new String(answer);
     }
 
     private static String reversePrintable(int index, int n) {
-        StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < n; i++) {
-            if (n == index + i + 1) {
-                stringBuffer.append(QUEEN_SYMBOL);
-            } else {
-                stringBuffer.append(EMPTY_PLACE);
-            }
-        }
-        return stringBuffer.toString();
+        char[] answer = new char[n];
+        Arrays.fill(answer, '.');
+        answer[n - 1 - index] = 'Q';
+        return new String(answer);
     }
 }
