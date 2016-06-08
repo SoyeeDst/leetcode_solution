@@ -13,7 +13,7 @@ public class LeetCode76 {
             return "";
         }
 
-        MiniWindowStatus miniWindowStatus = new MiniWindowStatus(t);
+        MiniWindowStatus miniWindowStatus = new MiniWindowStatus(t, s);
 
         int index = 0;
         do {
@@ -34,58 +34,43 @@ public class LeetCode76 {
     private static class MiniWindowStatus {
 
         private int length;
+        private int start = 0;
         private char[] criteriaArray;
-        private Integer[] positions;
-        private int placeHolderCnt;
-        private int minLength = Integer.MAX_VALUE;
+        private char[] wholeStrArray;
+        private int[] positions = new int[256];
+        int minLength = Integer.MAX_VALUE;
         public int minimumStart = -1;
         public int minimumEnd = -1;
 
-        public MiniWindowStatus(String criteria) {
+        public MiniWindowStatus(String criteria, String wholeStr) {
             this.criteriaArray = criteria.toCharArray();
-            length = criteriaArray.length;
-            positions = new Integer[length];
-
+            length = criteria.length();
+            wholeStrArray = wholeStr.toCharArray();
+            for (char eachChar : criteriaArray) {
+                positions[eachChar]++;
+            }
         }
 
         public void checkOnceChar(Character oneChar, int offset) {
-            boolean found = true;
-            for (int index = 0; index < length; index++) {
-                if (criteriaArray[index] == oneChar) {
-                    if (positions[index] == null) {
-                        positions[index] = offset;
-                        placeHolderCnt = placeHolderCnt + 1;
-                        found = true;
-                        break;
-                    } else {
-                        found = false;
-                    }
-                }
+            if (positions[oneChar] > 0) {
+                length--;
             }
-            // override
-            if (!found) {
-                for (int index = 0; index < length; index++) {
-                    if (criteriaArray[index] == oneChar) {
-                        positions[index] = offset;
-                    }
-                }
-            }
-            if (placeHolderCnt == length) {
-                int minStart = Integer.MAX_VALUE;
-                for (int index = 0; index < length; index++) {
-                    if (positions[index] < minStart) {
-                        minStart = positions[index];
-                    }
-                }
-                if (offset - minStart + 1 < minLength) {
-                    minimumStart = minStart;
+            positions[oneChar]--;
+            while (length == 0) {
+                if ((offset - start + 1) < minLength) {
+                    minLength = offset - start + 1;
+                    minimumStart = start;
                     minimumEnd = offset;
-                    minLength = offset - minStart + 1;
                 }
+                positions[wholeStrArray[start]]++;
+                if (positions[wholeStrArray[start]] > 0) {
+                    length++;
+                }
+                start++;
             }
         }
-
     }
+
 
 }
 
