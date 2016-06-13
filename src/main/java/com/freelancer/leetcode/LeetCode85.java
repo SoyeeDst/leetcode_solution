@@ -12,58 +12,58 @@ public class LeetCode85 {
         int r = m.length;
         int c = m[0].length;
         int r1 = 0;
-        Integer[][] res = new Integer[r][c];
-        int max = 0;
+        int ma = 0;
 
         do {
             int c1 = 0;
             do {
-                if (res[r1][c1] != null) {
+                if (m[r1][c1] == 0) {
                     c1++;
                     continue;
-                }
-                if (m[r1][c1] == '0') {
-                    res[r1][c1] = 0;
-                    c1++;
-                    continue;
-                }
-                if (r1 + 1 < r && m[r1 + 1][c1] == '0') {
-                    int c1temp = c1;
-                    int hcount = 1;
-                    while (c1temp + 1 < c) {
-                        if (m[r1][c1temp] == '1') {
-                            hcount++;
-                        } else {
+                } else {
+                    int ct = c1;
+
+                    while (ct < c && m[r1][ct] != '0') {
+                        ct++;
+                    }
+
+                    ct--;
+
+                    // maxCols get
+                    for (int ii = ct; ii >= c1; ii--) {
+                        int rs = r1 + 1;
+                        while (rs < r) {
+                            int ct2 = ii;
+                            do {
+                                if (m[rs][ct2] == '0') {
+                                    break;
+                                }
+                                ct2--;
+                            } while (ct2 >= c1);
+
+                            if (ct2 < c1) {
+                                rs++;
+                            } else {
+                                break;
+                            }
+                        }
+
+                        int mp = (rs - r1) * (ii - c1 + 1);
+                        if (mp > ma) {
+                            ma = mp;
+                        }
+
+                        if (rs == r) {
                             break;
                         }
-                        c1temp++;
+
                     }
-                    res[r1][c1] = hcount;
-                    c1++;
-                    continue;
-                } else if (c1 + 1 < c && m[r1][c1 + 1] == '0') {
-                    int r1temp = r1;
-                    int rcount = 1;
-                    while (r1temp + 1 < c) {
-                        if (m[r1temp][c1] == '1') {
-                            rcount++;
-                        } else {
-                            break;
-                        }
-                        r1temp++;
-                    }
-                    res[r1][c1] = rcount;
-                    c1++;
-                    continue;
-                } else if (r1 + 1 < r && c1 + 1 < c) {
-                    // todo blocks
                 }
                 c1++;
             } while (c1 < c);
             r1++;
         } while (r1 < r);
-
-        return 0;
+        return ma;
     }
 
 }
