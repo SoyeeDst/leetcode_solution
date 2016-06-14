@@ -25,4 +25,16 @@ public class LeetCode87Test {
         LeetCode87 leetCode87 = new LeetCode87();
         Assert.assertTrue(leetCode87.isScramble("ab", "ba"));
     }
+
+    @Test
+    public void testIsScramble4() {
+        LeetCode87 leetCode87 = new LeetCode87();
+        Assert.assertTrue(leetCode87.isScramble("greateeeee", "rgeateeeee"));
+    }
+
+    @Test
+    public void testIsScramble5() {
+        LeetCode87 leetCode87 = new LeetCode87();
+        Assert.assertTrue(leetCode87.isScramble("greatabcde", "rgtaebaedc"));
+    }
 }

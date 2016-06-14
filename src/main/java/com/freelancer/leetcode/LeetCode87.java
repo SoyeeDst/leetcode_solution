@@ -19,31 +19,18 @@ public class LeetCode87 {
         int n = s1.length();
         if (n == 0) {
             return true;
-        } else if (n == 1) {
-            return s1.equals(s2);
-        } else if (n == 2) {
-            return s1.charAt(0) == s2.charAt(1) && s1.charAt(1) == s2.charAt(0);
         }
 
-        if (!scramble(s1, s2, 0, n / 2, true)) {
-            return false;
-        }
-
-        return scramble(s1, s2, n / 2, n - (n / 2), false);
+        return scramble(s1, s2, 0, n);
     }
 
-    private static boolean scramble(String s1, String s2, int s, int l, boolean left) {
+    private static boolean scramble(String s1, String s2, int s, int l) {
+
         if (l == 0) {
             return true;
         }
 
-        if (!left) {
-            if (s1.substring(s).equals(s2.substring(s))) {
-                return true;
-            }
-        }
-
-        if (1 == 2) {
+        if (l <= 3) {
             int lt = 0;
             int tp = s;
             int rtp = s + l - 1;
@@ -57,11 +44,13 @@ public class LeetCode87 {
             } while (lt < l);
             return true;
         } else {
-            if (!scramble(s1, s2, s, l / 2, true)) {
+            if (!scramble(s1, s2, s, l / 2)) {
                 return false;
             }
-            return scramble(s1, s2, l / 2, l - (l / 2), false);
+            if (s1.substring(s + l / 2).equals(s2.substring(s + l / 2))) {
+                return true;
+            }
+            return scramble(s1, s2, s + l / 2, l - (l / 2));
         }
-
     }
 }
