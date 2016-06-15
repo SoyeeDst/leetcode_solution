@@ -22,6 +22,8 @@ public class LeetCode91Test {
     public void testCnrOfEncodings2() {
         LeetCode91 leetCode91 = new LeetCode91();
         Assert.assertEquals(0, leetCode91.numDecodings("0"));
-        Assert.assertEquals(2, leetCode91.numDecodings("10"));
+        Assert.assertEquals(1, leetCode91.numDecodings("10"));
+        Assert.assertEquals(1, leetCode91.numDecodings("101"));
+        Assert.assertEquals(0, leetCode91.numDecodings("1001"));
     }
 }
