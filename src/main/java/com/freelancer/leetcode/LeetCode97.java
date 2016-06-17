@@ -21,81 +21,48 @@ public class LeetCode97 {
             return false;
         }
 
-        int i1 = 0;
-        int i2 = 0;
-        int cnt1 = 0;
-        int cnt2 = 0;
-        boolean lst = true;
-        boolean stlst = true;
+        int i3 = 0;
+        Boolean[][] res = new Boolean[i1l + 1][i2l + 1];
 
         do {
-            if (i1 < 0 || i2 < 0) {
-                return false;
-            }
+            if (i3 == 0) {
+                boolean got = false;
+                if (s3.charAt(i3) == s1.charAt(0)) {
+                    res[1][0] = true;
+                    got = true;
+                }
+                if (s3.charAt(i3) == s2.charAt(0)) {
+                    res[0][1] = true;
+                    got = true;
+                }
 
-            if (i1 > i1l - 1) {
-                lst = false;
-            } else if (i2 > i2l - 1) {
-                lst = true;
-            }
-            if (lst && s3.charAt(cnt1 + cnt2) == s1.charAt(i1)) {
-                cnt1++;
-                i1++;
-                stlst = true;
-            } else if (!lst && s3.charAt(cnt1 + cnt2) == s2.charAt(i2)) {
-                cnt2++;
-                i2++;
-                stlst = false;
+                if (!got) {
+                    return false;
+                }
+
             } else {
-                char mc = s3.charAt(cnt1 + cnt2);
-                lst = !lst;
-                if (stlst) {
-                    boolean got = false;
-                    i2 = Math.min(i2, i2l - 1);
-                    do {
-                        if (mc == s2.charAt(i2)) {
+                int t = Math.min(i3, i1l);
+                boolean got = false;
+                do {
+                    if (i3 - t <= i2l && res[t][i3 - t] != null && res[t][i3 - t]) {
+                        if (t < i1l && s3.charAt(i3) == s1.charAt(t)) {
+                            res[t + 1][i3 - t] = true;
                             got = true;
-                            i2++;
-                            cnt2++;
-                            stlst = false;
-                            break;
                         }
-                        i1--;
-                        cnt1--;
-                        i2++;
-                        if (i2 > cnt2 - 1) {
-                            break;
-                        }
-                    } while((i1 >= 0 && i2 <= cnt2 - 1));
-
-                    if (!got) {
-                        return false;
-                    }
-                } else {
-                    boolean got = false;
-                    i1 = Math.min(i1, i1l - 1);
-                    do {
-                        if (mc == s1.charAt(i1)) {
+                        if (i3 - t < i2l && s3.charAt(i3) == s2.charAt(i3 - t)) {
+                            res[t][i3 - t + 1] = true;
                             got = true;
-                            i1++;
-                            cnt1++;
-                            stlst = true;
-                            break;
                         }
-                        i1++;
-                        cnt2--;
-                        i2--;
-                        if (i1 > cnt1 - 1) {
-                            break;
-                        }
-                    } while (i2 >= 0 && i1 <= cnt1 - 1);
-
-                    if (!got) {
-                        return false;
                     }
+                    t--;
+                } while (t >= 0);
+
+                if (!got) {
+                    return false;
                 }
             }
-        } while (cnt1 + cnt2 < i1l + i2l);
+            i3++;
+        } while (i3 < i3l);
 
         return true;
     }
