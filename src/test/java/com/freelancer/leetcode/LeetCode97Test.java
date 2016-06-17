@@ -14,6 +14,7 @@ public class LeetCode97Test {
         Assert.assertTrue(leetCode97.isInterleave("aabcc", "dbbca", "aadbbcbcac"));
         Assert.assertFalse(leetCode97.isInterleave("aabcc", "dbbca", "aadbbbaccc"));
         Assert.assertFalse(leetCode97.isInterleave("aad", "aac", "aadc"));
-        //Assert.assertTrue(leetCode97.isInterleave("aa", "ab", "aaba"));
+        Assert.assertTrue(leetCode97.isInterleave("aa", "ab", "aaba"));
+        Assert.assertTrue(leetCode97.isInterleave("aac", "aad", "aadaac"));
     }
 }
