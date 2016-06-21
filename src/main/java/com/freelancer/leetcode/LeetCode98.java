@@ -2,7 +2,9 @@ package com.freelancer.leetcode;
 
 import com.freelancer.leetcode.support.TreeNode;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -16,93 +18,24 @@ public class LeetCode98 {
             return true;
         }
 
+        List<TreeNode> pl = new ArrayList<>();
+        flat(root, pl);
+
+        for (int index = 1; index < pl.size(); index++) {
+            if (pl.get(index).val <= pl.get(index - 1).val) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void flat(TreeNode root, List<TreeNode> pl) {
         if (root.left != null) {
-            if (root.left.val >= root.val) {
-                return false;
-            }
-            Stack<Cond> conditions = new Stack<>();
-            conditions.push(new Cond(true, root.val));
-            if (!isValidBST(root.left, conditions)) {
-                return false;
-            }
+            flat(root.left, pl);
         }
-
+        pl.add(root);
         if (root.right != null) {
-            if (root.right.val <= root.val) {
-                return false;
-            }
-            Stack<Cond> conditions = new Stack<>();
-            conditions.push(new Cond(false, root.val));
-            if (!isValidBST(root.right, conditions)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean isValidBST(TreeNode treeNode, Stack<Cond> conditions) {
-        if (treeNode.left != null) {
-            if (treeNode.left.val >= treeNode.val) {
-                return false;
-            }
-
-            Enumeration<Cond> enumeration =  conditions.elements();
-            while (enumeration.hasMoreElements()) {
-                Cond cond = enumeration.nextElement();
-                if (!cond.leftTree) {
-                    if (treeNode.left.val <= cond.value) {
-                        return false;
-                    }
-                } else {
-                    if (treeNode.left.val >= cond.value) {
-                        return false;
-                    }
-                }
-            }
-
-            conditions.push(new Cond(true, treeNode.val));
-            if (!isValidBST(treeNode.left, conditions)) {
-                return false;
-            }
-        }
-
-        if (treeNode.right != null) {
-            if (treeNode.right.val <= treeNode.val) {
-                return false;
-            }
-
-            Enumeration<Cond> enumeration =  conditions.elements();
-            while (enumeration.hasMoreElements()) {
-                Cond cond = enumeration.nextElement();
-                if (!cond.leftTree) {
-                    if (treeNode.right.val <= cond.value) {
-                        return false;
-                    }
-                } else {
-                    if (treeNode.right.val >= cond.value) {
-                        return false;
-                    }
-                }
-            }
-
-            conditions.push(new Cond(false, treeNode.val));
-            if (!isValidBST(treeNode.right, conditions)) {
-                return false;
-            }
-        }
-
-        conditions.pop();
-        return true;
-    }
-
-
-    private static class Cond {
-        public boolean leftTree;
-        public int value;
-
-        public Cond(boolean leftTree, int value) {
-            this.leftTree = leftTree;
-            this.value = value;
+            flat(root.right, pl);
         }
     }
 
