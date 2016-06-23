@@ -1,6 +1,7 @@
 package com.freelancer.leetcode;
 
 import com.freelancer.leetcode.support.TreeLinkNode;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -24,5 +25,6 @@ public class LeetCode117Test {
         rdNode.right = svnthNode;
 
         leetCode117.connect(stNode);
+        Assert.assertEquals(svnthNode, fifthNode.next);
     }
 }
