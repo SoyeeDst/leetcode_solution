@@ -10,15 +10,41 @@ public class LeetCode121 {
         }
         int mf = 0;
         int ix = 1;
+        int[][] pc = new int[prices.length][2];
 
         do {
             if (prices[ix] > prices[ix - 1]) {
-                int bix = 0;
+                if (mf == 0) {
+                    // reset
+                    pc[ix - 1][0] = ix - 1;
+                    pc[ix - 1][1] = ix - 1;
+                }
+
+                int d1 = prices[ix] - prices[pc[ix - 1][0]];
+                int d2 = 0;
+                int li = 0;
+                int nix = pc[ix - 1][1];
                 do {
-                    mf = Math.max(prices[ix] - prices[bix], mf);
-                    bix++;
-                } while (bix <= ix - 1);
+                    int t2 = prices[ix] - prices[nix];
+                    if (t2 >= d2) {
+                        d2 = t2;
+                        li = nix;
+                    }
+                    nix++;
+                } while (nix <= ix - 1);
+
+                int df = d2 >= d1 ? d2 : d1;
+                if (df > mf) {
+                    mf = df;
+                    pc[ix][0] = (d2 >= d1) ? li : (pc[ix - 1][0]);
+                    pc[ix][1] = ix;
+                    ix++;
+                    continue;
+                }
             }
+
+            pc[ix][0] = pc[ix - 1][0];
+            pc[ix][1] = pc[ix - 1][1];
             ix++;
         } while (ix < prices.length);
         return mf;
