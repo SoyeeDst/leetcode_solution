@@ -19,7 +19,7 @@ public class LeetCode123 {
 
         int max = r[0][l - 1];
         for (int i = l - 2; i >= 0; i--) {
-            max = Math.max(r[0][i] + r[i + 1][l - 1], max);
+            max = Math.max(r[0][i] + r[i][l - 1], max);
         }
 
         return max;
@@ -38,19 +38,17 @@ public class LeetCode123 {
                 ix++;
                 continue;
             }
-
             if (prices[ix] > prices[ix - 1]) {
                 int bix = s;
                 do {
                     mf = Math.max(prices[ix] - prices[bix], mf);
-                    r[bix][ix] = mf;
                     bix++;
                 } while (bix <= ix - 1);
+                r[s][ix] = mf;
             } else {
                 r[s][ix] = r[s][ix - 1];
             }
             ix++;
-
         } while (ix <= e);
     }
 }
