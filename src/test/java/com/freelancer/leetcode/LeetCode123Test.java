@@ -13,4 +13,10 @@ public class LeetCode123Test {
         LeetCode123 leetCode123 = new LeetCode123();
         Assert.assertEquals(11, leetCode123.maxProfit(new int[]{7, 1, 5, 3, 6, 4, 10}));
     }
+
+    @Test
+    public void testMaxProfit2() {
+        LeetCode123 leetCode123 = new LeetCode123();
+        Assert.assertEquals(3, leetCode123.maxProfit(new int[]{1, 4, 2}));
+    }
 }

@@ -11,21 +11,18 @@ public class LeetCode123 {
         }
 
         int l = prices.length;
-        Integer[][] r = new Integer[l][l];
-        for (int i = 0; i < l; i++) {
-            r[i][i] = 0;
-            populateCell(prices, i, l - 1, r);
-        }
+        int[][] r = new int[l][l];
+        populateCell(prices, 0, l - 1, r);
 
         int max = r[0][l - 1];
-        for (int i = l - 2; i >= 0; i--) {
+        for (int i = l - 2; i > 0; i--) {
             max = Math.max(r[0][i] + r[i][l - 1], max);
         }
 
         return max;
     }
 
-    private static void populateCell(int[] prices, int s, int e, Integer[][] r) {
+    private static void populateCell(int[] prices, int s, int e, int[][] r) {
         r[s][s] = 0;
         int ix = s + 1;
         int mf = 0;
@@ -34,17 +31,17 @@ public class LeetCode123 {
         }
         do {
             // DP
-            if (r[s][ix] != null) {
+            if (r[s][ix] != 0) {
                 ix++;
                 continue;
             }
             if (prices[ix] > prices[ix - 1]) {
-                int bix = s;
+                int bix = ix - 1;
                 do {
                     mf = Math.max(prices[ix] - prices[bix], mf);
-                    bix++;
-                } while (bix <= ix - 1);
-                r[s][ix] = mf;
+                    r[bix][ix] = mf;
+                    bix--;
+                } while (bix >= s);
             } else {
                 r[s][ix] = r[s][ix - 1];
             }
