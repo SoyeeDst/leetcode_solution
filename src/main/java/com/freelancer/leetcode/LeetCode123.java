@@ -10,16 +10,39 @@ public class LeetCode123 {
             return 0;
         }
 
-        int l = prices.length;
+        int[] sprices = capital(prices);
+        if (sprices == null) {
+            return 0;
+        }
+
+        int l = sprices.length;
         int[][] r = new int[l][l];
-        populateCell(prices, 0, l - 1, r);
+        populateCell(sprices, 0, l - 1, r);
 
         int max = r[0][l - 1];
         for (int i = l - 2; i > 0; i--) {
             max = Math.max(r[0][i] + r[i][l - 1], max);
         }
-
         return max;
+    }
+
+    private static int[] capital(int[] prices) {
+        int ix = 1;
+        do {
+            if (prices[ix] <= prices[ix - 1]) {
+                ix++;
+                continue;
+            } else {
+                ix--;
+                break;
+            }
+        } while (ix < prices.length);
+        if (ix >= prices.length) {
+            return null;
+        }
+        int[] pricesCopy = new int[prices.length - ix];
+        System.arraycopy(prices, ix, pricesCopy, 0, pricesCopy.length);
+        return pricesCopy;
     }
 
     private static void populateCell(int[] prices, int s, int e, int[][] r) {
