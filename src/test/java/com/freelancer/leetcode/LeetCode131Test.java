@@ -39,8 +39,5 @@ public class LeetCode131Test {
         LeetCode131 leetCode131 = new LeetCode131();
         List<List<String>> plList = leetCode131.partition("aaaaaa");
         Assert.assertEquals(32, plList.size());
-        for (List<String> option : plList) {
-            System.err.println(StringUtils.join(option.toArray(), "@@ "));
-        }
     }
 }

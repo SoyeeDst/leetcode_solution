@@ -35,6 +35,6 @@ public class LeetCode135Test {
     @Test
     public void testCandy5() {
         LeetCode135 leetCode135 = new LeetCode135();
-        Assert.assertEquals(4, leetCode135.candy(new int[]{2, 2, 1}));
+        Assert.assertEquals(3, leetCode135.candy(new int[]{2, 2, 1}));
     }
 }
