@@ -13,22 +13,17 @@ public class LeetCodeTest2 {
             return 0;
         }
 
-        Integer[] maxLenArray = new Integer[A.length];
         int maxLen = Integer.MIN_VALUE;
         int index = 0;
+        BitSet bitSet = new BitSet(A.length);
         do {
-            if (maxLenArray[index] != null) {
-                if (maxLenArray[index] > maxLen) {
-                    // impossible, but give it a try
-                    maxLen = maxLenArray[index];
-                }
+            if (bitSet.get(index)) {
                 index++;
                 continue;
             }
-            BitSet bitSet = new BitSet(A.length);
-            calculateLenForElement(index, A, maxLenArray, bitSet);
-            if (maxLenArray[index] > maxLen) {
-                maxLen = maxLenArray[index];
+            int length = calculateLenForElement(index, A, bitSet);
+            if (length > maxLen) {
+                maxLen = length;
             }
             index++;
         } while (index < A.length);
@@ -36,14 +31,17 @@ public class LeetCodeTest2 {
         return maxLen;
     }
 
-    private static void calculateLenForElement(int index, int []A, Integer[] maxLenArray, BitSet bitSet) {
-        if (A[index] == index || bitSet.get(index)) {
-            maxLenArray[index] = 0;
-            return;
+    private static int calculateLenForElement(int index, int []A, BitSet bitSet) {
+        if (A[index] == index) {
+            return 0;
         }
 
-        bitSet.set(index);
-        calculateLenForElement(A[index], A, maxLenArray, bitSet);
-        maxLenArray[index] = maxLenArray[A[index]] + 1;
+        int cnt = 0;
+        while (!bitSet.get(index)) {
+            bitSet.set(index);
+            index = A[index];
+            cnt++;
+        }
+        return cnt;
     }
 }
