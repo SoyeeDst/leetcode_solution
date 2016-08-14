@@ -12,6 +12,7 @@ public class LeetCodeTest1Test {
     @Test
     public void testEmptyMaxPoints() {
         LeetCodeTest1 leetCode149 = new LeetCodeTest1();
+        Assert.assertEquals(5, leetCode149.solution(5, 5));
         Assert.assertEquals(4, leetCode149.solution(5, 7));
         Assert.assertEquals(8, leetCode149.solution(8, 9));
         Assert.assertEquals(0, leetCode149.solution(0, 0));
