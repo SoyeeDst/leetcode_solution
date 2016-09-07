@@ -77,7 +77,7 @@ public class LeetCode149Test {
     public void testMaxPointsWA2SuperLong() {
         LeetCode149 leetCode149 = new LeetCode149();
         Point[] pa = constructPA();
-        Assert.assertEquals(25, leetCode149.maxPoints(pa));
+        Assert.assertEquals(24, leetCode149.maxPoints(pa));
     }
 
     private Point[] constructPA() {
