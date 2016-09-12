@@ -37,14 +37,14 @@ public class LeetCode166 {
                 legacy = legacy - val * denominator;
             } else {
                 if (!decimal) {
-                   if (sBuffer.length() == 0) {
-                       sBuffer.append(PLACE_HOLDER);
-                   }
-                   sBuffer.append(DECIMAL_FLAG);
-                   modular.put(legacy, sBuffer.length());
-                   decimal = true;
+                    if (sBuffer.length() == 0) {
+                        sBuffer.append(PLACE_HOLDER);
+                    }
+                    sBuffer.append(DECIMAL_FLAG);
+                    modular.put(legacy, sBuffer.length());
+                    decimal = true;
                 } else {
-                   sBuffer.append(PLACE_HOLDER);
+                    sBuffer.append(PLACE_HOLDER);
                 }
             }
             if (decimal) {
