@@ -14,14 +14,20 @@ public class LeetCode166 {
     private static final String PLACE_HOLDER = "0";
     private static final String PREFIX_BRACKET = "(";
     private static final String SUFFIX_BRACKET = ")";
+    private static final String MINUS = "-";
 
     public String fractionToDecimal(int numerator, int denominator) {
         if (numerator == 0) {
             return PLACE_HOLDER;
         }
-        StringBuffer sBuffer = new StringBuffer("");
+
+        boolean negative = (numerator < 0 && denominator > 0)
+                           || (numerator > 0 && denominator < 0);
+
         int legacy = numerator;
         boolean decimal = false;
+
+        StringBuffer sBuffer = new StringBuffer("");
         Map<Integer, Integer> modular = new HashMap<>();
         while ((legacy != 0)) {
             // before any business logic handling
@@ -32,7 +38,10 @@ public class LeetCode166 {
                 modular.put(legacy, sBuffer.length());
             }
             int val = legacy / denominator;
-            if (val >= 1) {
+            if (val != Integer.MIN_VALUE) {
+                val = Math.abs(val);
+            }
+            if (val >= 1 || val == Integer.MIN_VALUE) {
                 sBuffer.append(val);
                 legacy = legacy - val * denominator;
             } else {
@@ -55,6 +64,10 @@ public class LeetCode166 {
         if (legacy != 0) {
             sBuffer.insert(modular.get(legacy), PREFIX_BRACKET);
             sBuffer.append(SUFFIX_BRACKET);
+        }
+
+        if (negative) {
+            sBuffer.insert(0, MINUS);
         }
         return sBuffer.toString();
     }
