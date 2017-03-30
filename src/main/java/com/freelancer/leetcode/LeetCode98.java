@@ -1,11 +1,9 @@
 package com.freelancer.leetcode;
 
-import com.freelancer.leetcode.support.TreeNode;
-
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.Stack;
+
+import com.freelancer.leetcode.support.TreeNode;
 
 /**
  * Created by Soyee on 2016/6/17.
