@@ -1,7 +1,7 @@
 package com.freelancer.leetcode;
 
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -14,20 +14,28 @@ public class LeetCode169 {
     	   return nums[0];
        }
        
+       Integer maxCount = Integer.MIN_VALUE;
+       Integer maxKey = null;
        Map<Integer, Integer> countMap = new HashMap<Integer, Integer>();
        for (int x = 0; x < nums.length; x++) {
+    	   Integer count = null;
     	   if (countMap.get(nums[x]) == null) {
-    		   countMap.put(nums[x], 1);
+    		   count = 1;
     	   } else {
-    		   countMap.put(nums[x], countMap.get(nums[x]) + 1);
+    		   count = countMap.get(nums[x]) + 1;
+    	   }
+    	   countMap.put(nums[x], count);
+    	   if (count > maxCount) {
+    		   maxCount = count;
+    		   maxKey = nums[x];
     	   }
        }
        
-       Iterator<Integer> xxx = countMap.keySet().iterator();
-       Integer maxCount = Integer.MIN_VALUE;
-       while (xxx.hasNext()) {
-    	   int key = xxx.next();
-    	   int value = countMap.get(key);
-       }
+       return maxKey;
+	}
+	
+	public int majorityElementV2(int[] nums) {
+		Arrays.sort(nums);
+	    return nums[nums.length/2];
 	}
 }
