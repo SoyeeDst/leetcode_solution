@@ -35,6 +35,7 @@ public class LeetCode169 {
 	}
 	
 	public int majorityElementV2(int[] nums) {
+		// General n log(n) complexity, really surpass the performance of o(n) ?
 		Arrays.sort(nums);
 	    return nums[nums.length/2];
 	}
