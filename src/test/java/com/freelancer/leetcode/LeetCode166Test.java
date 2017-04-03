@@ -23,7 +23,7 @@ public class LeetCode166Test {
         Assert.assertEquals("0.1(6)", leetCode166.fractionToDecimal(1, 6));
     }
 
-    // @org.junit.Test
+    @org.junit.Test
     public void testFractionToDecimalWA2() {
         LeetCode166 leetCode166 = new LeetCode166();
         Assert.assertEquals("-6.25", leetCode166.fractionToDecimal(-50, 8));
