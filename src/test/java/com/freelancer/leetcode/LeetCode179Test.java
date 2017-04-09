@@ -47,4 +47,13 @@ public class LeetCode179Test {
 		Assert.assertEquals("3232012812", leetCode179.largestNumber(nums));
 	}
 
+	@Test
+	public void testlargestNumber7() {
+		int[] nums = new int[] { 0, 0 };
+		LeetCode179 leetCode179 = new LeetCode179();
+		Assert.assertEquals("0", leetCode179.largestNumber(nums));
+	}
+
+
+
 }

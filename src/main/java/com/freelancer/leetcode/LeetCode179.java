@@ -14,7 +14,11 @@ public class LeetCode179 {
 		StringBuffer sb = new StringBuffer("");
 		int y = 0;
 		while (y < nums.length) {
-			sb.append(premium(x));
+			String z = premium(x);
+			if (y == 0 && Integer.parseInt(z) == 0) {
+				return "0";
+			}
+			sb.append(z);
 			y++;
 		}
 		return sb.toString();
