@@ -1,3 +1,4 @@
+package com.freelancer.leetcode;
 import java.util.Arrays;
 
 public class LeetCode242 {
