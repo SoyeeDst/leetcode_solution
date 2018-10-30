@@ -1,8 +1,5 @@
 package com.freelancer.leetcode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by soyee on 2017/1/8.
  */
